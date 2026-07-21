@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+
+    <base href="https://cdn.jsdelivr.net/gh/skidding-code/korona-games@main/flashcard/">
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="icon" type="x-icon" href="favicon.png">
+    <title>UNDERTALE</title>
+    <style>
+    @-webkit-keyframes rotation {
+    from {
+    -webkit-transform: rotate(0deg);
+    }
+
+    to {
+    -webkit-transform: rotate(360deg);
+    }
+    }
+
+    @-moz-keyframes rotation {
+    from {
+    -moz-transform: rotate(0deg);
+    }
+
+    to {
+    -moz-transform: rotate(360deg);
+    }
+    }
+
+    @-o-keyframes rotation {
+    from {
+    -o-transform: rotate(0deg);
+    }
+
+    to {
+    -o-transform: rotate(360deg);
+    }
+    }
+
+    @keyframes rotation {
+    from {
+    transform: rotate(0deg);
+    }
+
+    to {
+    transform: rotate(360deg);
+    }
+    }
+
+    html {
+    background: #FFFF;
+    }
+
+    body {
+    font-family: arial;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    min-height: fill-available;
+    min-height: 100vh;
+    min-width: 100vw;
+    background: radial-gradient(
+    56.63% 56.63% at 50% 43.37%,
+    transparent 0%,
+    transparent 100%
+    );
+		background-color: black;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+		place-items: center;
+    }
+
+    body.scrollingDisabled {
+    overflow: hidden;
+    }
+
+    .emscripten {
+    padding-right: 0;
+    display: block;
+    }
+
+    div.emscripten {
+    text-align: center;
+		font-family: "Lucida Console", Monaco, monospace;
+    }
+
+    canvas.emscripten {
+    display: none;
+    background-color: black;
+    position: flex;
+    transition: opacity 5s ease-in;
+    -webkit-transition: opacity 5s ease-in;
+    opacity: 0;
+    filter: blur(0) grayscale(0);
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -o-crisp-edges;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+    }
+
+    canvas.active {
+    animation-name: fadeIn;
+    animation-duration: 2s;
+    opacity: 1;
+    }
+
+    canvas.paused {
+    animation-name: blur;
+    animation-duration: 0.5s;
+    filter: blur(2px) grayscale(1);
+    }
+
+    canvas.unpaused {
+    animation-name: none;
+    }
+
+    canvas.animatedSizeTransitions {
+    transition: width 0.3s ease, height 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+    0% {
+    opacity: 0;
+    }
+
+    100% {
+    opacity: 1;
+    }
+    }
+
+    @keyframes blur {
+    0% {
+    filter: blur(0) grayscale(0);
+    }
+
+    100% {
+    filter: blur(2px) grayscale(1);
+    }
+    }
+
+    .spinner {
+    height: 30px;
+    width: 30px;
+
+    -webkit-animation: rotation 0.8s linear infinite;
+    -moz-animation: rotation 0.8s linear infinite;
+    -o-animation: rotation 0.8s linear infinite;
+    animation: rotation 0.8s linear infinite;
+
+    border: 5px solid #bdff00;
+    border-top: 5px solid #719900;
+    border-radius: 100%;
+    }
+
+    #status {
+    display: inline-block;
+    vertical-align: top;
+    font-weight: bold;
+    color: white;
+    }
+
+    #progress {
+    width: 250px;
+    height: 10px;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 5px;
+    }
+
+    progress[value]::-webkit-progress-bar {
+    background-color: #8492a6;
+    height: 10px;
+    border-radius: 15px;
+    }
+    progress[value]::-webkit-progress-value {
+    background-image: -webkit-linear-gradient(left, #719900, #bdff00);
+    height: 10px;
+    border-radius: 15px;
+    }
+
+    div.loading {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    }
+    div.loading > * {
+    padding: 10px;
+    margin: 10px;
+    }
+
+    .output-container {
+    text-align: center;
+    margin-top: auto;
+    }
+    .output-button {
+    border: none;
+    width: 200px;
+    height: 25px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+		outline-color: #20c20e;
+		outline-style: dashed;
+    font-family: "Lucida Console", Monaco, monospace;
+    }
+
+    #output {
+    display: none;
+    height: 200px;
+    background-color: black;
+    color: white;
+    font-family: "Lucida Console", Monaco, monospace;
+    outline: none;
+    border: none;
+    padding: 0;
+    width: 100%;
+    }
+
+    #message-container {
+    display: none;
+    min-height: 50px;
+    background-color: rgba(20, 20, 20, 0.5);
+    outline: none;
+    border: none;
+    padding: 0;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    }
+
+    #messages {
+    margin-left: 50px;
+    color: white;
+    font-family: "Lucida Console", Monaco, monospace;
+    outline: none;
+    border: none;
+    padding: 0;
+    }
+
+    img.qrCode {
+    opacity: 1.0;
+    width: 50%;
+    height: 50%;
+    }
+
+    #pauseMenuContainer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    #pauseMenuContainer[hidden] {
+    display: none !important;
+    opacity: 0;
+    }
+
+    #pauseMenuBorder {
+    background: linear-gradient(135deg, #FA1E4E, transparent 40%);
+    padding: 1px;
+    border-radius: 4px;
+    clip-path: polygon(10.5px 0, 100% 0, 100% 100%, 0 100%, 0 10.5px);
+    width: 70vw;
+    max-width: 400px;
+    }
+
+    #pauseMenu {
+    display: flex;
+    flex-direction: column;
+    padding: 60px 30px 60px 30px;
+    background: linear-gradient(180deg, #2E273F 16.15%, rgba(46, 39, 63, 0.79) 56.25%, #2E273F 91.15%);
+    border-radius: 4px;
+    clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+    opacity: 1;
+    }
+
+    #pauseMenu button {
+    font-weight: 500;
+    font-size: 17px;
+    color: white;
+    background: #FA1E4E;
+    border: 1px solid #FA1E4E;
+    border-radius: 6px;
+    padding: 12px 24px;
+    margin: 5px 0;
+    -webkit-user-select: none;
+    user-select: none;
+    }
+
+    #pauseMenu button#quitButton {
+    background: #FA1E4E40;
+    }
+
+    #pauseMenu button:hover {
+    filter: brightness(1.15);
+    }
+
+    #pauseMenu button:active {
+    filter: brightness(0.85);
+    }
+
+    #pauseMenu button[hidden] {
+    display: none;
+    }
+
+#offlineDownloadBtn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: #bdff00;
+  color: #000;
+  border: 2px solid #719900;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-family: "Lucida Console", Monaco, monospace;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+#offlineDownloadBtn .close-btn {
+  font-size: 20px;
+  font-weight: bold;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  cursor: pointer;
+  line-height: 1;
+}
+
+#offlineDownloadBtn .close-btn:hover {
+  opacity: 1;
+  color: #ff0000;
+}
+
+#offlineDownloadBtn.hidden {
+  display: none !important;
+}
+
+    #downloadModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    }
+
+    #downloadModal.show {
+    display: flex;
+    }
+
+    #downloadModalContent {
+    background: linear-gradient(180deg, #2E273F 16.15%, rgba(46, 39, 63, 0.95) 56.25%, #2E273F 91.15%);
+    border: 2px solid #bdff00;
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 500px;
+    text-align: center;
+    animation: fadeIn 0.3s;
+    }
+
+    #downloadModalContent h2 {
+    color: #bdff00;
+    font-family: "Lucida Console", Monaco, monospace;
+    margin-top: 0;
+    font-size: 24px;
+    }
+
+    #downloadModalContent p {
+    color: white;
+    font-family: "Lucida Console", Monaco, monospace;
+    margin: 20px 0;
+    line-height: 1.6;
+    }
+
+    .modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+    }
+
+    .modal-button {
+    background: #bdff00;
+    color: #000;
+    border: 2px solid #719900;
+    border-radius: 8px;
+    padding: 15px 30px;
+    font-family: "Lucida Console", Monaco, monospace;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s;
+    }
+
+    .modal-button:hover {
+    background: #719900;
+    color: #fff;
+    transform: scale(1.05);
+    }
+
+    .modal-button.secondary {
+    background: #555;
+    border-color: #333;
+    color: #fff;
+    }
+
+    .modal-button.secondary:hover {
+    background: #666;
+    }
+
+    .file-size {
+    color: #bdff00;
+    font-size: 14px;
+    margin-top: 10px;
+    }
+    </style>
+  </head>
+  <body>
+
+    <canvas
+    class="emscripten"
+    id="canvas"
+    oncontextmenu="event.preventDefault()"
+    tabindex="-1"
+    >
+    </canvas>
+    <div id="pauseMenuContainer" hidden>
+    <div id="pauseMenuBorder">
+    <div id="pauseMenu">
+    <button id="resumeButton" onclick="resume()">
+    Resume
+    </button>
+    <button id="quitButton" onclick="quitIfSupported()">
+    Quit
+    </button>
+    </div>
+    </div>
+    </div>
+    <div class="loading">
+    <div class="spinner" id="spinner"></div>
+    <div class="emscripten" id="status">Downloading...(faster now. new repo)</div>
+
+    <progress value="0" max="100" id="progress" hidden="1"></progress>
+    </div>
+
+    <div id="message-container">
+    <div id="messages">
+    </div>
+    </div>
+
+    <script>
+      function hideDownloadButton() {
+  document.getElementById('offlineDownloadBtn').classList.add('hidden');
+}
+    const musicFiles = [
+      'mus_ghostbattle.ogg', 'snd_curtgunshot.ogg', 'mus_piano.ogg', 'mus_f_6s_5.ogg',
+      'mus_temvillage.ogg', 'mus_mettatonbattle.ogg', 'mus_f_wind2.ogg', 'mus_zzz_c2.ogg',
+      'mus_town.ogg', 'mus_computer.ogg', 'mus_mettafly.ogg', 'mus_f_destroyed3.ogg',
+      'mus_elevator_last.ogg', 'mus_f_intro.ogg', 'mus_harpnoise.ogg', 'mus_hereweare.ogg',
+      'mus_f_finale_3.ogg', 'mus_repeat_2.ogg', 'mus_f_part3.ogg', 'mus_disturbing.ogg',
+      'mus_st_troubledingle.ogg', 'mus_drone.ogg', 'mus_undynefast.ogg', 'mus_cast_2.ogg',
+      'mus_chokedup.ogg', 'mus_sfx_hypergoner_charge.ogg', 'mus_creepy_ambience.ogg',
+      'mus_tone2.ogg', 'mus_sfx_hypergoner_laugh.ogg', 'mus_doorclose.ogg', 'mus_mettsad.ogg',
+      'mus_waterfall.ogg', 'mus_boss1.ogg', 'mus_napstahouse.ogg', 'mus_zz_megalovania.ogg',
+      'mus_menu4.ogg', 'mus_smallshock.ogg', 'mus_menu3.ogg', 'mus_kingdescription.ogg',
+      'mus_snowy.ogg', 'mus_cast_1.ogg', 'mus_churchbell.ogg', 'mus_f_newlaugh.ogg',
+      'mus_house2.ogg', 'mus_dooropen.ogg', 'snd_ballchime.ogg', 'mus_rain_deep.ogg',
+      'mus_mett_cheer.ogg', 'mus_crickets.ogg', 'mus_date_fight.ogg', 'mus_core_ambience.ogg',
+      'mus_f_6s_4.ogg', 'mus_battle2.ogg', 'mus_predummy.ogg', 'mus_birdsong.ogg',
+      'mus_anothermedium.ogg', 'mus_wind.ogg', 'mus_leave.ogg', 'mus_options_winter.ogg',
+      'mus_menu0.ogg', 'mus_x_undyne_pre.ogg', 'mus_toriel.ogg', 'mus_snoresymphony.ogg',
+      'mus_toomuch.ogg', 'mus_cast_3.ogg', 'mus_prebattle1.ogg', 'mus_tv.ogg',
+      'mus_dogroom.ogg', 'mus_st_him.ogg', 'mus_mettaton_pretransform.ogg', 'mus_ruins.ogg',
+      'mus_options_summer.ogg', 'mus_whoopee.ogg', 'mus_myemeow.ogg', 'mus_mystery.ogg',
+      'mus_sigh_of_dog.ogg', 'mus_dogshrine_xbox.ogg', 'mus_xpart_b.ogg', 'mus_mettmusical1.ogg',
+      'mus_dogmeander.ogg', 'mus_sfx_chainsaw.ogg', 'mus_sansdate.ogg', 'mus_x_undyne.ogg',
+      'mus_fallendown2.ogg', 'mus_mysteriousroom2.ogg', 'mus_undyneboss.ogg', 'mus_mettmusical2.ogg',
+      'mus_deeploop2.ogg', 'mus_dance_of_dog.ogg', 'mus_cast_5.ogg', 'mus_date.ogg',
+      'mus_wawa.ogg', 'mus_mode.ogg', 'mus_dummybattle.ogg', 'mus_cast_6.ogg',
+      'mus_f_alarm.ogg', 'mus_cast_4.ogg', 'mus_ruinspiano.ogg', 'mus_muscle.ogg',
+      'mus_spoopy_wave.ogg', 'mus_date_tense.ogg', 'mus_f_6s_2.ogg', 'mus_gameover.ogg',
+      'mus_undynescary.ogg', 'mus_f_6s_6.ogg', 'mus_undynepiano.ogg', 'mus_f_part1.ogg',
+      'mus_rain.ogg', 'mus_dogshrine_2.ogg', 'mus_menu1.ogg', 'mus_xpart_a.ogg',
+      'mus_reunited.ogg', 'mus_snowwalk.ogg', 'mus_elevator.ogg', 'mus_zzz_c.ogg',
+      'mus_endarea_partb.ogg', 'mus_fearsting.ogg', 'mus_spoopy.ogg', 'mus_wrongnumbersong.ogg',
+      'mus_bgflamea.ogg', 'mus_z_ending.ogg', 'mus_xpart_2.ogg', 'mus_operatile.ogg',
+      'mus_st_happytown.ogg', 'mus_tone3.ogg', 'mus_birdnoise.ogg', 'mus_repeat_1.ogg',
+      'mus_mettmusical4.ogg', 'mus_story.ogg', 'mus_waterquiet.ogg', 'mus_confession.ogg',
+      'mus_silence.ogg', 'mus_amalgam.ogg', 'mus_dogshrine_1.ogg', 'mus_f_destroyed.ogg',
+      'mus_f_wind1.ogg', 'mus_bad.ogg', 'mus_endingexcerpt1.ogg', 'mus_xpart.ogg',
+      'mus_coretransition.ogg', 'mus_oogloop.ogg', 'mus_core.ogg', 'mus_vsasgore.ogg',
+      'mus_napstachords.ogg', 'mus_story_stuck.ogg', 'mus_spoopy_holiday.ogg', 'mus_race.ogg',
+      'mus_musicbox.ogg', 'mus_express_myself.ogg', 'mus_lab.ogg', 'mus_news.ogg',
+      'mus_news_battle.ogg', 'mus_sticksnap.ogg', 'mus_undynetruetheme.ogg', 'mus_dununnn.ogg',
+      'mus_intronoise.ogg', 'mus_hotel_battle.ogg', 'mus_options_fall.ogg', 'mus_papyrus.ogg',
+      'mus_alphysfix.ogg', 'mus_sfx_rainbowbeam_hold.ogg', 'mus_mett_applause.ogg',
+      'mus_f_newlaugh_low.ogg', 'mus_papyrusboss.ogg', 'mus_mettmusical3.ogg', 'mus_mettaton_neo.ogg',
+      'mus_cymbal.ogg', 'mus_ambientwater.ogg', 'mus_undynetheme.ogg', 'mus_st_meatfactory.ogg',
+      'snd_mushroomdance.ogg', 'mus_sfx_a_grab.ogg', 'mus_menu5.ogg', 'mus_wrongworld.ogg',
+      'mus_yourbestfriend_3.ogg', 'mus_house1.ogg', 'mus_flowey.ogg', 'mus_mettaton_ex.ogg',
+      'mus_woofenstein.ogg', 'mus_menu2.ogg', 'mus_smile.ogg', 'mus_f_part2.ogg',
+      'mus_dontgiveup.ogg', 'mus_coolbeat.ogg', 'mus_shop.ogg', 'mus_f_6s_3.ogg',
+      'mus_woofenstein_loop.ogg', 'mus_battle1.ogg', 'mus_xpart_back.ogg', 'mus_hotel.ogg',
+      'mus_barrier.ogg', 'mus_endarea_parta.ogg', 'mus_ohyes.ogg', 'mus_endingexcerpt2.ogg',
+      'mus_tension.ogg', 'mus_f_6s_1.ogg', 'mus_temshop.ogg', 'mus_dogappear.ogg',
+      'mus_mtgameshow.ogg', 'mus_spider.ogg', 'mus_f_destroyed2.ogg', 'mus_star.ogg',
+      'mus_f_saved.ogg', 'mus_bergentruckung.ogg', 'mus_f_finale_2.ogg', 'mus_cast_7.ogg',
+      'mus_dogsong.ogg', 'mus_f_finale_1_l.ogg', 'mus_rimshot.ogg', 'mus_f_finale_1.ogg',
+      'mus_menu6.ogg',
+      'index.html',
+      'index.js',
+      'runner.js',
+      'favicon.png',
+      'game.unx.part1',
+      'game.unx.part2',
+      'game.unx.part3',
+      'game.unx.part4',
+      'game.unx.part5',
+      'runner.data',
+      'runner.wasm',
+      'audio-worklet.js',
+      'runner.json',
+      'runnerLocal.svg',
+      'runner.svg'
+    ];
+
+    const coreFiles = [
+      'index.html',
+      'index.js',
+      'runner.js',
+      'favicon.png',
+      'game.unx.part1',
+      'game.unx.part2',
+      'game.unx.part3',
+      'game.unx.part4',
+      'game.unx.part5',
+      'runner.data',
+      'runner.wasm',
+      'audio-worklet.js',
+      'runner.json',
+      'runnerLocal.svg',
+      'runner.svg'
+    ];
+
+    function showDownloadModal() {
+      document.getElementById('downloadModal').classList.add('show');
+    }
+
+    function hideDownloadModal() {
+      document.getElementById('downloadModal').classList.remove('show');
+    }
+
+    async function startDownload(includeMusic) {
+  hideDownloadModal();
+  
+  const btn = document.getElementById('offlineDownloadBtn');
+  const statusEl = document.getElementById('status');
+  const progressEl = document.getElementById('progress');
+  
+  btn.disabled = true;
+  btn.textContent = 'Downloading...';
+  
+  const baseUrl = 'https://cdn.jsdelivr.net/gh/DylanThahan28/dw/';
+  let filesToCache = [...coreFiles];
+  
+  if (includeMusic) {
+    filesToCache = filesToCache.concat(musicFiles);
+  }
+  
+  try {
+    if (!('serviceWorker' in navigator)) {
+      alert('Service Workers not supported in this browser');
+      btn.disabled = false;
+      btn.textContent = ' Download for Offline';
+      return;
+    }
+    
+    const swUrls = [
+      '/pinned/undertale/cachesw.js',
+      'cachesw.js',
+      './cachesw.js',
+      '../cachesw.js',
+      '/cachesw.js'
+    ];
+    
+    let registration;
+    for (const swUrl of swUrls) {
+      try {
+        registration = await navigator.serviceWorker.register(swUrl);
+        console.log('Service worker registered from:', swUrl);
+        break;
+      } catch (e) {
+        console.warn('Failed to register SW from:', swUrl, e);
+      }
+    }
+    
+    if (!registration) {
+      throw new Error('Failed to register service worker from all sources');
+    }
+    
+    await navigator.serviceWorker.ready;
+    
+    progressEl.hidden = false;
+    progressEl.max = filesToCache.length;
+    progressEl.value = 0;
+    
+    const cache = await caches.open('offline-cache-v1');
+    
+    for (let i = 0; i < filesToCache.length; i++) {
+      const file = filesToCache[i];
+      statusEl.textContent = `Caching ${file}... (${i + 1}/${filesToCache.length})`;
+      
+      try {
+        const fullUrl = baseUrl + file;
+        await cache.add(fullUrl);
+        console.log('Cached:', fullUrl);
+      } catch (e) {
+        console.warn('Failed to cache:', file, e);
+      }
+      
+      progressEl.value = i + 1;
+    }
+    
+    await cache.add(window.location.href);
+    
+    statusEl.textContent = 'All files cached! Ready for offline use.';
+    btn.textContent = 'Downloaded';
+    setTimeout(() => {
+      statusEl.textContent = 'Downloading...(faster now. new repo)';
+      progressEl.hidden = true;
+      btn.disabled = false;
+      btn.textContent = 'Download for Offline';
+    }, 3000);
+    
+  } catch (error) {
+    console.error('Download failed:', error);
+    statusEl.textContent = 'Download failed. Check console.';
+    btn.disabled = false;
+    btn.textContent = 'Retry Download';
+  }
+}
+    </script>
+
+    <script>
+    const blob = new Blob([document.querySelector('#tick-worker').textContent]);
+const worker = new Worker(window.URL.createObjectURL(blob));
+
+worker.onmessage = function () {
+  GM_tick(performance.now());
+}
+
+const isMultiplayer = function () {
+  if (typeof GM_is_multiplayer !== 'function') {
+    return false;
+  }
+
+  return GM_is_multiplayer() !== 0;
+}
+
+document.addEventListener('visibilitychange', function () {
+  if (!isMultiplayer()) {
+    return;
+  }
+
+  if (document.visibilityState === 'hidden') {
+    worker.postMessage({run: true, fps: 60});
+  } else {
+    worker.postMessage({run: false});
+  }
+});
+</script>
+<script>
+    function mergeFiles(fileParts) {
+    return new Promise((resolve, reject) => {
+    let buffers = [];
+  
+    function fetchPart(index) {
+    if (index >= fileParts.length) {
+    let mergedBlob = new Blob(buffers);
+    let mergedFileUrl = URL.createObjectURL(mergedBlob);
+    resolve(mergedFileUrl);
+    return;
+    }
+    fetch(fileParts[index]).then((response) => response.arrayBuffer()).then((data) => {
+    buffers.push(data);
+    fetchPart(index + 1);
+    }).catch(reject);
+    }
+    fetchPart(0);
+    });
+    }
+  
+    function getParts(file, start, end) {
+    let parts = [];
+    for (let i = start; i <= end; i++) {
+    parts.push(file + ".part" + i);
+    }
+    return parts;
+    }
+  
+    mergeFiles(getParts("game.unx", 1, 5)).then(async url => {
+    window.gameUnxUrl = url;
+  
+    const originalFetch = window.fetch;
+    window.fetch = async function (...args) {
+    let [url, options] = args;
+    if (typeof url === 'string' && url.includes("game.unx")) {
+    console.log("fetch:", url);
+    url = window.gameUnxUrl;
+    } else if (url instanceof Request && url.url.includes("game.unx")) {
+    console.log("fetch request:", url.url);
+    url = new Request(window.gameUnxUrl, url);
+    }
+    return originalFetch.call(this, url, options);
+    };
+  
+    const originalOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function (method, url, ...rest) {
+    if (url.includes("game.unx")) {
+    console.log("XHR:", url);
+    url = window.gameUnxUrl;
+    }
+    return originalOpen.call(this, method, url, ...rest);
+    };
+    let index = document.createElement("script");
+    index.src = "index.js";
+    document.body.appendChild(index);
+  
+    let runner = document.createElement("script");
+    runner.src = "runner.js";
+    document.body.appendChild(runner);
+    }).catch(error => {
+    console.error("Failed to merge files:", error);
+    });
+  </script>    
+  
+<script id="luminalos-cooperation-script">
+window.addEventListener('message', (event) => {
+    const { type, payload } = event.data;
+
+    if (type === 'request-save-data') {
+    console.log('Game received a request to save data.');
+    try {
+    const saveData = {};
+    for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    saveData[key] = localStorage.getItem(key);
+    }
+    
+    const saveDataString = JSON.stringify(saveData);
+
+    if (event.source) {
+    event.source.postMessage({ type: 'save-data-response', payload: saveDataString }, event.origin);
+    }
+    } catch (error) {
+    console.error('Error packaging game data:', error);
+    if (event.source) {
+    event.source.postMessage({ type: 'save-data-response', payload: null }, event.origin);
+    }
+    }
+    }
+
+    if (type === 'load-save-data') {
+    console.log('Game received a request to load data.');
+    try {
+    localStorage.clear();
+
+    const saveData = JSON.parse(payload);
+    for (const key in saveData) {
+    localStorage.setItem(key, saveData[key]);
+    }
+    
+    alert('Progress loaded! The game will now restart to apply the changes.');
+    location.reload();
+
+    } catch (error) {
+    console.error('Error loading game data:', error);
+    alert('Failed to load save data. The file might be corrupted.');
+    }
+    }
+});
+</script>
+</body>
+</html>

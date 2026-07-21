@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><base href="https://cdn.jsdelivr.net/gh/skidding-code/korona-games@main/flashcard/tpt/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>powdering it</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap');
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --purple-dim:    rgba(140, 60, 200, 0.4);
+      --purple-mid:    rgba(160, 80, 220, 0.6);
+      --purple-bright: rgba(192, 132, 252, 0.85);
+      --purple-text:   #d8b4fe;
+      --purple-light:  #e9d5ff;
+      --body-text:     #e2d4f0;
+      --glass-bg:      rgba(255, 255, 255, 0.04);
+      --glass-border:  rgba(160, 80, 220, 0.35);
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      font-family: 'Figtree', sans-serif;
+    }
+
+    /* ── Animated gradient background (Korona style) ── */
+    body {
+      background: linear-gradient(160deg, #000000, #1a0030, #0d001a, #2a0050, #000000);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+      color: var(--body-text);
+    }
+    @keyframes gradientShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ── Game canvas ── */
+    #canvas {
+      display: block;
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+    }
+    #canvas.ready { opacity: 1; }
+
+    /* ── Loader overlay ── */
+    #loader {
+      position: fixed; inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      gap: 32px;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    #loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* ── Korona wordmark ── */
+    .korona-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+    }
+    .korona-name {
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--purple-text);
+      letter-spacing: -0.01em;
+    }
+    .korona-sub {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--purple-bright);
+      letter-spacing: 0.14em;
+
+    }
+
+    /* ── Glass card ── */
+    .loader-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 32px 40px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      width: min(480px, 90vw);
+      box-shadow: 0 0 40px rgba(100, 30, 200, 0.15), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    .card-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--purple-bright);
+      letter-spacing: 0.1em;
+
+    }
+
+    /* ── Progress bar ── */
+    .progress-wrap {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .progress-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(140, 60, 200, 0.2);
+      border-radius: 2px;
+      overflow: hidden;
+      border: 1px solid rgba(140, 60, 200, 0.25);
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(100,30,160,0.9), #c084fc, #e9d5ff);
+      border-radius: 2px;
+      transition: width 0.2s ease;
+      box-shadow: 0 0 10px rgba(192, 132, 252, 0.5);
+    }
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(192, 132, 252, 0.55);
+      letter-spacing: 0.04em;
+    }
+    #pct-label { color: var(--purple-bright); }
+    #status-text::after {
+      content: '_';
+      animation: blink 1s step-end infinite;
+      color: var(--purple-text);
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ── Console log panel ── */
+    #console-wrap {
+      width: 100%;
+      max-height: 80px;
+      overflow-y: auto;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(140, 60, 200, 0.25);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.68rem;
+      line-height: 1.7;
+      font-family: 'Figtree', monospace;
+      color: rgba(192, 132, 252, 0.5);
+      scrollbar-width: thin;
+      scrollbar-color: var(--purple-dim) transparent;
+    }
+    #console-wrap .ln      { color: rgba(192,132,252,0.5); }
+    #console-wrap .ln.ok   { color: rgba(192,132,252,0.85); }
+    #console-wrap .ln.err  { color: #f87171; }
+    #console-wrap .ln.hi   { color: var(--purple-light); }
+
+    /* ── Diag rows ── */
+    #diag {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    #diag .row {
+      display: flex;
+      justify-content: space-between;
+      color: rgba(192,132,252,0.45);
+    }
+    #diag .ok      { color: rgba(192,132,252,0.85); }
+    #diag .err     { color: #f87171; }
+    #diag .pending { color: rgba(192,132,252,0.3); }
+
+    /* ── Error box ── */
+    #error-box {
+      display: none;
+      width: 100%;
+      color: #f87171;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.7;
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.25);
+      border-radius: 8px;
+      padding: 10px 14px;
+      white-space: pre-line;
+    }
+
+    /* ── Powered-by footer ── */
+    .powered-by {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: rgba(192,132,252,0.3);
+      letter-spacing: 0.1em;
+
+    }
+  </style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="korona-brand">
+    <div class="korona-name">https://korona.lat</div>
+  </div>
+  <div class="loader-card">
+    <div class="card-title">the powder toy</div>
+    <div class="korona-sub">webport by aubree.wtf</div>
+
+    <div class="progress-wrap">
+      <div class="progress-track">
+        <div class="progress-fill" id="prog-fill"></div>
+      </div>
+      <div class="progress-labels">
+        <span id="status-text">Initialising</span>
+        <span id="pct-label">0%</span>
+      </div>
+    </div>
+
+    <div id="console-wrap"></div>
+
+    <div id="diag">
+      <div class="row"><span>SharedArrayBuffer</span><span id="d-sab"     class="pending">checking…</span></div>
+      <div class="row"><span>Cross-Origin Isolated</span><span id="d-coop" class="pending">checking…</span></div>
+      <div class="row"><span>WebAssembly</span>          <span id="d-wasm" class="pending">checking…</span></div>
+      <div class="row"><span>powder.js</span>            <span id="d-js"   class="pending">waiting…</span></div>
+      <div class="row"><span>powder.wasm</span>          <span id="d-wasmbin" class="pending">waiting…</span></div>
+    </div>
+
+    <div id="error-box"></div>
+  </div>
+
+  <div class="powered-by">korona.lat</div>
+
+</div>
+
+<canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1"></canvas>
+
+<script>
+// ── UI helpers ─────────────────────────────────────────────────────────────
+var _fill    = document.getElementById('prog-fill');
+var _pctLbl  = document.getElementById('pct-label');
+var _statEl  = document.getElementById('status-text');
+var _loader  = document.getElementById('loader');
+var _canvas  = document.getElementById('canvas');
+var _errBox  = document.getElementById('error-box');
+var _cw      = document.getElementById('console-wrap');
+var _logN    = 0;
+
+// 3-second minimum display so Korona branding gets seen
+var _loaderShowTime = Date.now();
+var _BRAND_DELAY    = 3000;
+var _gameReady      = false;
+
+function clog(msg, cls) {
+  if (_logN > 300) return;
+  _logN++;
+  var d = document.createElement('div');
+  d.className = 'ln' + (cls ? ' ' + cls : '');
+  d.textContent = msg;
+  _cw.appendChild(d);
+  _cw.scrollTop = _cw.scrollHeight;
+  console.log('[tpt]', msg);
+}
+
+function setProgress(pct) {
+  pct = Math.min(100, Math.max(0, pct));
+  _fill.style.width = pct + '%';
+  _pctLbl.textContent = Math.round(pct) + '%';
+}
+
+function setStatus(msg) { _statEl.textContent = msg; }
+
+function diagOk(id, msg)  { var e = document.getElementById(id); e.textContent = msg || 'OK'; e.className = 'ok'; }
+function diagErr(id, msg) { var e = document.getElementById(id); e.textContent = msg || 'FAIL'; e.className = 'err'; }
+
+function showError(msg) {
+  _errBox.style.display = 'block';
+  _errBox.textContent   = msg;
+  _fill.style.background = 'rgba(239,68,68,0.7)';
+  _fill.style.boxShadow  = '0 0 10px rgba(239,68,68,0.4)';
+}
+
+function dismissLoader() {
+  setProgress(100);
+  setStatus('Ready');
+  _canvas.classList.add('ready');
+  _loader.classList.add('hidden');
+}
+
+// Called when Emscripten signals it's done — respects 3s brand delay
+function onReady() {
+  if (_gameReady) return;
+  _gameReady = true;
+  clog('Runtime initialised — launching', 'ok');
+  var elapsed = Date.now() - _loaderShowTime;
+  var remaining = Math.max(0, _BRAND_DELAY - elapsed);
+  if (remaining > 0) {
+    clog('Showing branding for ' + (remaining / 1000).toFixed(1) + 's more…');
+    setStatus('Ready — launching soon');
+  }
+  setTimeout(dismissLoader, remaining);
+}
+
+// ── Preflight checks ───────────────────────────────────────────────────────
+if (typeof SharedArrayBuffer !== 'undefined') {
+  diagOk('d-sab', 'available');
+  clog('SharedArrayBuffer: available', 'ok');
+} else {
+  diagErr('d-sab', 'MISSING');
+  clog('SharedArrayBuffer MISSING — server needs COOP/COEP headers', 'err');
+  showError('SharedArrayBuffer unavailable.\nServer must send:\nCross-Origin-Opener-Policy: same-origin\nCross-Origin-Embedder-Policy: require-corp');
+}
+
+if (self.crossOriginIsolated) {
+  diagOk('d-coop', 'isolated ✓');
+  clog('crossOriginIsolated: true', 'ok');
+} else {
+  diagErr('d-coop', 'NOT isolated');
+  clog('crossOriginIsolated: false — COOP/COEP headers missing', 'err');
+}
+
+if (typeof WebAssembly === 'object') {
+  diagOk('d-wasm', 'supported');
+  clog('WebAssembly: supported', 'ok');
+} else {
+  diagErr('d-wasm', 'not supported');
+  showError('WebAssembly is not supported in this browser.');
+}
+
+// ── Fetch patch — WASM download progress ──────────────────────────────────
+(function () {
+  var orig = window.fetch.bind(window);
+  window.fetch = function (input, init) {
+    var url = typeof input === 'string' ? input : (input.url || String(input));
+    if (url.indexOf('.wasm') !== -1) {
+      clog('Fetching: ' + url.split('/').pop(), 'hi');
+      diagOk('d-wasmbin', 'fetching…');
+      setStatus('Downloading WASM…');
+      return orig(input, init).then(function (res) {
+        if (!res.ok) { diagErr('d-wasmbin', 'HTTP ' + res.status); return res; }
+        var total  = parseInt(res.headers.get('Content-Length') || '0', 10) || null;
+        var loaded = 0;
+        clog('Size: ' + (total ? (total / 1048576).toFixed(2) + ' MB' : 'unknown'), 'hi');
+        var reader = res.body.getReader();
+        var stream = new ReadableStream({
+          start: function (ctrl) {
+            function pump() {
+              reader.read().then(function (r) {
+                if (r.done) {
+                  ctrl.close();
+                  clog('Download complete — ' + (loaded / 1024).toFixed(0) + ' KB', 'ok');
+                  diagOk('d-wasmbin', (loaded / 1048576).toFixed(2) + ' MB ✓');
+                  setStatus('Compiling WASM…');
+                  return;
+                }
+                loaded += r.value.byteLength;
+                ctrl.enqueue(r.value);
+                if (total) {
+                  setProgress((loaded / total) * 80);
+                  if (loaded % (128 * 1024) < r.value.byteLength)
+                    clog('  ' + (loaded / 1024).toFixed(0) + ' / ' + (total / 1024).toFixed(0) + ' KB', 'hi');
+                } else {
+                  if (loaded % (128 * 1024) < r.value.byteLength)
+                    clog('  ' + (loaded / 1024).toFixed(0) + ' KB', 'hi');
+                }
+                pump();
+              }).catch(function (e) { ctrl.error(e); });
+            }
+            pump();
+          }
+        });
+        return new Response(stream, { headers: res.headers, status: res.status, statusText: res.statusText });
+      });
+    }
+    return orig(input, init);
+  };
+  clog('Fetch interceptor ready', 'ok');
+})();
+
+// ── Error handler ─────────────────────────────────────────────────────────
+window.onerror = function (msg, src, line) {
+  clog('ERROR: ' + msg, 'err');
+  setStatus('Error');
+  showError(msg);
+};
+
+// ── Load powder.js then call factory ─────────────────────────────────────
+(function () {
+  clog('Loading powder.js…');
+  diagOk('d-js', 'loading…');
+  var s    = document.createElement('script');
+  s.src    = 'powder.js';
+  s.onerror = function () {
+    clog('powder.js failed to load', 'err');
+    diagErr('d-js', 'FAILED');
+    showError('powder.js failed to load.\nCheck build-web/ and your server.');
+  };
+  s.onload = function () {
+    clog('powder.js loaded — starting', 'ok');
+    diagOk('d-js', 'loaded ✓');
+
+    if (typeof create_powder !== 'function') {
+      clog('create_powder() not found', 'err');
+      diagErr('d-wasmbin', 'no factory');
+      showError('create_powder() not found in powder.js.\nUnexpected build format.');
+      return;
+    }
+
+    var totalDeps = 0;
+
+    create_powder({
+      canvas: _canvas,
+      print:    function (t) { clog(t); },
+      printErr: function (t) { clog(t, 'err'); },
+
+      setStatus: function (text) {
+        if (!text) { onReady(); return; }
+        clog('status: ' + text);
+        var m = text.match(/(\d+(?:\.\d+)?)\/(\d+)/);
+        if (m) {
+          setProgress((parseFloat(m[1]) / parseFloat(m[2])) * 100);
+          setStatus('Downloading ' + m[1] + ' / ' + m[2]);
+        } else {
+          setStatus(text);
+        }
+      },
+
+      monitorRunDependencies: function (left) {
+        clog('deps: ' + left + ' remaining');
+        totalDeps = Math.max(totalDeps, left);
+        if (left === 0) {
+          onReady();
+        } else {
+          var done = totalDeps - left;
+          setProgress(80 + (done / totalDeps) * 20);
+          setStatus('Modules ' + done + ' / ' + totalDeps);
+        }
+      },
+
+      onRuntimeInitialized: function () {
+        clog('onRuntimeInitialized', 'ok');
+        diagOk('d-wasmbin', 'running ✓');
+      }
+
+    }).then(function () {
+      clog('create_powder() resolved', 'ok');
+    }).catch(function (e) {
+      clog('create_powder() failed: ' + e, 'err');
+      showError('Module failed: ' + e);
+    });
+  };
+  document.body.appendChild(s);
+})();
+</script>
+</body>
+</html>
