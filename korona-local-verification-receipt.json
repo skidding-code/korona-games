@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "korona-local-verification-receipt",
+  "status": "verified",
+  "manifestSha256": "2a049bca121544e9758491ab1f74abe125a6c2eda1e93e3a9a1787a234346de7",
+  "entries": 110,
+  "objects": 1035,
+  "ranges": [
+    {
+      "path": "flashcard/adatewithdeath/game.zip",
+      "start": 0,
+      "end": 4096,
+      "size": 4096,
+      "sha256": "cd72d80f577c1250054886c0b56c67142cd2521246fabd483d4c469f63df3646"
+    },
+    {
+      "path": "flashcard/divaextend/diva.iso",
+      "start": 16777208,
+      "end": 16777224,
+      "size": 16,
+      "sha256": "aa1d556f198910081af1692b99c1516cc30e4dfd5e02da84188d0cb15de971c3"
+    },
+    {
+      "path": "flashcard/divaextend/diva.iso",
+      "start": 1799188480,
+      "end": 1799192576,
+      "size": 4096,
+      "sha256": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7"
+    },
+    {
+      "path": "flashcard/minecraft/tuff/index.html",
+      "start": 0,
+      "end": 4096,
+      "size": 4096,
+      "sha256": "cd16fe07a854ab3e9faa7dfdb187fe763738fa622a9f58ecbe26d208c1ab8d52"
+    },
+    {
+      "path": "flashcard/windowkill/windowkill.wasm",
+      "start": 43012837,
+      "end": 43016933,
+      "size": 4096,
+      "sha256": "486826168f18e035066db17c0c6f3351b121d51d5ba858ded2b6c031888bfa64"
+    }
+  ]
+}

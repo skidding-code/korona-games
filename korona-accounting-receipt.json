@@ -1,0 +1,664 @@
+{
+  "schemaVersion": 1,
+  "kind": "korona-accounting-receipt",
+  "status": "complete",
+  "packageCoreSha256": "0a34d7b593a8e62b0d60bfd62d2dadfaa86ec1bb50749fde1d3a3cebc425a0bb",
+  "legacyPathCount": 111,
+  "legacyRealPathCount": 110,
+  "representedLegacyPathCount": 110,
+  "oversizedPathCount": 110,
+  "ignoredGitMetadataCount": 1,
+  "ignoredGitMetadata": [
+    ".git/objects/1e/40bc7cfb0b1172a77b08eeefc304a8e62eb377"
+  ],
+  "ignoredScanEntries": [
+    {
+      "path": "flashcard/fah2/img/characters/%apprentice.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%armor.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%black_kalev.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%black_kalev_parasite.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%botanist.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%botanist2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%botanist2_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%botanist3.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%botanist4.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%botanist5.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%botanist_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%chef.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%chef2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%doctor.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%doctor2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%doctor2_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%doctor3.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%doctor4.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%doctor5.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%doctor_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%dog.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%ghoul.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%ghoul2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%ghoul_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%ghoul_crab2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%heavy_armor.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%heavy_armor3.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%hunter.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%hunter2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%journalist.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%journalist2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%journalist2_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%journalist3.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%journalist4.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%journalist_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%lieutanent.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%lieutanent2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%lieutanent3.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mechanic.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mechanic2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mechanic2_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mechanic3.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mechanic4.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mechanic5.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mechanic_alt.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mechanic_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mercenary.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mercenary2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mercenary2_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mercenary3.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mercenary4.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mercenary5.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mercenary_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mercenary_run1.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mobster.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%mobster2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%occultist.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%occultist2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%occultist2_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%occultist3.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%occultist4.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%occultist5.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%occultist_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%reila.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%salaryman.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%salaryman2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%thug.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%thug2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%thug2_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%thug3.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%thug4.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%thug5.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%thug_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%trooper1.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%villager1.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%villager2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%villager_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%villager_crab2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%wounded1.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%wounded2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%yellow_mage.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%yellow_mage2.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%yellow_mage2_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/fah2/img/characters/%yellow_mage_crab.rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$bs_en_anglerfish%(7).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$bs_en_anglerfish%(7).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$bs_en_cindi%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$bs_en_cindi%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$bs_en_dorothi%(9).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$bs_en_dorothi%(9).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$bs_en_lili%(4).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$bs_en_lili%(4).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$bs_en_merci%(4).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$bs_en_merci%(4).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$bs_en_nanci%(7).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$bs_en_nanci%(7).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$bs_en_salli%(4).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$bs_en_salli%(4).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$butterfly_%(4).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$butterfly_%(4).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$butterflywhite%(4).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$butterflywhite%(4).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_aubrey_flour_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_aubrey_flour_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_aubrey_masked_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_aubrey_masked_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_aubrey_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_aubrey_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_basil_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_basil_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_dough_ball%(4).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_dough_ball%(4).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_hero_flour_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_hero_flour_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_hero_masked_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_hero_masked_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_hero_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_hero_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_kel_flour_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_kel_flour_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_kel_masked_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_kel_masked_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_kel_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_kel_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_omori_dig_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_omori_dig_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_omori_f_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_omori_f_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_omori_flour_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_omori_flour_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_omori_masked_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_omori_masked_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_omori_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_omori_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_ot_jj_dance_1%(4).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_ot_jj_dance_1%(4).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_ot_jj_dance_2%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$dw_ot_jj_dance_2%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_aubrey_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_aubrey_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_basil_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_basil_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_hero_night_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_hero_night_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_hero_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_hero_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_kel_night_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_kel_night_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_kel_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_kel_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_omori_night_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_omori_night_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_omori_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_omori_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_omoripizza_run%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$fa_omoripizza_run%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$gibs_sing%(8).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/$gibs_sing%(8).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/bs_en_nanci%(7).png",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "flashcard/omori/img/characters/bs_en_nanci%(7).rpgmvp",
+      "reason": "unsafe-path"
+    },
+    {
+      "path": "wisp-assets.json",
+      "reason": "legacy-metadata"
+    }
+  ],
+  "missingLegacyPaths": [],
+  "duplicateLegacyPaths": [],
+  "unsafeLegacyPaths": [],
+  "unaccountedOversizedPaths": []
+}

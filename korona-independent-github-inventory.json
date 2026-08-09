@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "kind": "korona-independent-github-inventory",
+  "status": "verified",
+  "repositories": [
+    {
+      "repository": "skidding-code/korona-games-shard-001",
+      "commit": "52c9ef9fa286b03a9772893057e9c52735c6dbee",
+      "tag": "korona-task5-20260809T044908Z",
+      "objects": 92,
+      "bytes": 1487277343,
+      "treeSha256": "eca75d5bcc78ba68bb0f507de63237d296a5ece7e39099a871efbcb4fdb38b6e",
+      "status": "verified"
+    },
+    {
+      "repository": "skidding-code/korona-games-shard-002",
+      "commit": "8d6e20811f06662a16adec20d0b920f68bbc6e14",
+      "tag": "korona-task5-20260809T044908Z",
+      "objects": 95,
+      "bytes": 1498827475,
+      "treeSha256": "2e84fff8524ea12bffa93e5b45c47f3629825a600ff7239396ab0add4669e4d1",
+      "status": "verified"
+    },
+    {
+      "repository": "skidding-code/korona-games-shard-003",
+      "commit": "b716843dd1bd932c90f0165d97ae0e5be1505b8e",
+      "tag": "korona-task5-20260809T044908Z",
+      "objects": 93,
+      "bytes": 1483501595,
+      "treeSha256": "0268ee4bee1e1f84e5a00756cb0d38efb7e014e184e4216db6c8f75451a4fd31",
+      "status": "verified"
+    },
+    {
+      "repository": "skidding-code/korona-games-shard-004",
+      "commit": "57dbf9c033f19cd7c7cfcb9b24e9874a9694dd89",
+      "tag": "korona-task5-20260809T044908Z",
+      "objects": 92,
+      "bytes": 1491133081,
+      "treeSha256": "8e96adf3ba0b2452a53d47eaf67f50e3729fbac2b086333f4e3a76bd2fb5ace6",
+      "status": "verified"
+    },
+    {
+      "repository": "skidding-code/korona-games-shard-005",
+      "commit": "6556309dc514139fe87930ad2b7f969be7f9325a",
+      "tag": "korona-task5-20260809T044908Z",
+      "objects": 95,
+      "bytes": 1491654511,
+      "treeSha256": "51b17e099a7e8510694822f49415001b00ab82ed9a1ddcb420fc3c9c5d5e382d",
+      "status": "verified"
+    },
+    {
+      "repository": "skidding-code/korona-games-shard-006",
+      "commit": "a3a044ca36116d71db9da9491c7282c21704dfe0",
+      "tag": "korona-task5-20260809T044908Z",
+      "objects": 91,
+      "bytes": 1488552594,
+      "treeSha256": "40127ec263537c61e89ffa3529813a9427358d2aec69d08ab85cdf85446688c5",
+      "status": "verified"
+    },
+    {
+      "repository": "skidding-code/korona-games-shard-007",
+      "commit": "906c1d6e65463a843d8cedadcf3cea16cd692b0b",
+      "tag": "korona-task5-20260809T044908Z",
+      "objects": 97,
+      "bytes": 1497415779,
+      "treeSha256": "b3f710e49ad8905a6b1b8bec65d4c1472fa2af2243df399d6f10d2843a30100f",
+      "status": "verified"
+    },
+    {
+      "repository": "skidding-code/korona-games-shard-008",
+      "commit": "42e46522ca2fc33c81ef0f78811871872451ed5f",
+      "tag": "korona-task5-20260809T044908Z",
+      "objects": 93,
+      "bytes": 1490932681,
+      "treeSha256": "df7ba6af0b9bbd936252da930d1281d884195111da3f9bc4ae8745650540a28c",
+      "status": "verified"
+    },
+    {
+      "repository": "skidding-code/korona-games-shard-009",
+      "commit": "dd12400d0e509856761c2d5334a41f0eba91d131",
+      "tag": "korona-task5-20260809T044908Z",
+      "objects": 96,
+      "bytes": 1499270559,
+      "treeSha256": "43020bf9e693cb3f970fc6d8b1401e7047dcfcc000d191cc553dc54700c3324c",
+      "status": "verified"
+    },
+    {
+      "repository": "skidding-code/korona-games-shard-010",
+      "commit": "0b11345c2a8830f4c50af9c61a3ce5dadc6a019b",
+      "tag": "korona-task5-20260809T044908Z",
+      "objects": 93,
+      "bytes": 1485455251,
+      "treeSha256": "d180046ac774ebb1ef9aaf63debab9f6eaae64498da64dd1255aebb8e13967a1",
+      "status": "verified"
+    },
+    {
+      "repository": "skidding-code/korona-games-shard-011",
+      "commit": "3a356e2e07c68ee979b48c85bce6767d45d25c3d",
+      "tag": "korona-task5-20260809T044908Z",
+      "objects": 98,
+      "bytes": 1481576568,
+      "treeSha256": "c646da0e8d9e921fb5279fe2502c14a2711450954f7517490a55ba9c5d2416f8",
+      "status": "verified"
+    }
+  ],
+  "totalObjects": 1035,
+  "totalBytes": 16395597437
+}
