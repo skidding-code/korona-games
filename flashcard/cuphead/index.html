@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head><base href="https://cdn.jsdelivr.net/gh/skidding-code/korona-games@08a6d09813360092c09c26df8245cb6ed6fa143d/flashcard/cuphead/">
+  <head><base href="https://cdn.jsdelivr.net/gh/skidding-code/korona-games@91060fa5e7453966f7e58cb84f76da9462305d52/flashcard/cuphead/">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Cuphead</title>
@@ -37,27 +37,27 @@
     <div id="unityContainer"></div>
     <script>
       var loadingText = document.querySelector("#loading-text");
-  
+
       let loadedBytes = 0;
-  
+
       async function fetchWithProgress(url) {
           const response = await fetch(url);
           const reader = response.body.getReader();
           let chunks = [];
           let received = 0;
-  
+
           while (true) {
               const { done, value } = await reader.read();
               if (done) break;
               received += value.length;
               loadedBytes += value.length;
               chunks.push(value);
-  
+
               let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
               let mbTotal = '2127.34';
               loadingText.innerHTML = `LOADING... ${mbDone} MB / ${mbTotal} MB<br><span style="color: red;">First time playing always takes forever</span>`;
           }
-  
+
           let fullBuffer = new Uint8Array(received);
           let offset = 0;
           for (let chunk of chunks) {
@@ -66,13 +66,13 @@
           }
           return fullBuffer.buffer;
       }
-  
+
       async function mergeFiles(fileParts) {
           const buffers = await Promise.all(fileParts.map(part => fetchWithProgress(part)));
           const mergedBlob = new Blob(buffers);
           return URL.createObjectURL(mergedBlob);
       }
-  
+
       function getParts(file, start, end) {
           let parts = [];
           for (let i = start; i <= end; i++) {
@@ -80,7 +80,7 @@
           }
           return parts;
       }
-  
+
       function resizeUnityContainer() {
     var container = document.getElementById("unityContainer");
     var canvas = container.querySelector("canvas");
@@ -94,21 +94,21 @@
     }
 }
 
-  
+
       (async () => {
           const allParts = [
               ...getParts("Build/Build.asm.code.unityweb", 1, 3),
               ...getParts("Build/Build.data.unityweb", 1, 103),
               ...getParts("Build/Build.wasm.code.unityweb", 1, 2),
           ];
- 
-  
+
+
           const [asmurl, dataUrl, wasmurl] = await Promise.all([
               mergeFiles(getParts("Build/Build.asm.code.unityweb", 1, 3)),
               mergeFiles(getParts("Build/Build.data.unityweb", 1, 103)),
               mergeFiles(getParts("Build/Build.wasm.code.unityweb", 1, 2)),
           ]);
-  
+
           const json ={
 "companyName": "SpanishFreddy",
 "productName": "Cuphead",
@@ -124,11 +124,11 @@
 "splashScreenStyle": "Dark",
 "backgroundColor": "#231F20"
 };
-  
+
           let blob = new Blob([JSON.stringify(json)], { type: "application/json" });
           let blobUrl = URL.createObjectURL(blob);
           window.addEventListener("resize", resizeUnityContainer);
-  
+
           UnityLoader.instantiate("unityContainer", json, {
               url: blobUrl,
               Module: {

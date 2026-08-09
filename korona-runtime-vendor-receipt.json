@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "korona-runtime-vendor-receipt",
+  "status": "complete",
+  "files": [
+    {
+      "url": "https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js",
+      "path": "flashcard/_vendor/jquery-1.6.0.min.js",
+      "size": 90518,
+      "sha256": "e58da58b314ccdeefa3c4865b4b8aa3153e890d7904e04483481d8fff2c27eaa",
+      "effectiveUrl": "https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"
+    },
+    {
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js",
+      "path": "flashcard/_vendor/three-r134.min.js",
+      "size": 615601,
+      "sha256": "74782bdbcf6518f7745ed77035968fcae95ed4ab5c9a0f90cf646a69c20785ec",
+      "effectiveUrl": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js",
+      "path": "flashcard/_vendor/vanta-net-0.5.24.min.js",
+      "size": 13225,
+      "sha256": "76fe5829c73c27aa4f357200997c160523277c0ddb81f35d5cfb818cc3cb96c6",
+      "effectiveUrl": "https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"
+    },
+    {
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.10.1/nipplejs.min.js",
+      "path": "flashcard/_vendor/nipplejs-0.10.1.min.js",
+      "size": 20009,
+      "sha256": "ef8e279a4580d3f519a5ed1576fd08cbc8ad9c6025fe1aaf68b5ddcf72dde552",
+      "effectiveUrl": "https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.10.1/nipplejs.min.js"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/merge.js",
+      "path": "flashcard/_vendor/merge.js",
+      "size": 9863,
+      "sha256": "358f897f2e6820e502fa83b55b3b94ce46926bd8fe1ed8a5e33f1690256abbaa",
+      "effectiveUrl": "https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/merge.js"
+    }
+  ]
+}

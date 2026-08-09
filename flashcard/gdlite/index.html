@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 
-<head><base href="https://cdn.jsdelivr.net/gh/skidding-code/korona-games@08a6d09813360092c09c26df8245cb6ed6fa143d/flashcard/gdlite/">
+<head><base href="https://cdn.jsdelivr.net/gh/skidding-code/korona-games@91060fa5e7453966f7e58cb84f76da9462305d52/flashcard/gdlite/">
     <title>Geometry Dash</title>
     <link rel="icon" type="image/png" href="https://e3334afd.cf-nate.pages.dev/0/g/geodash/game/splash.png">
     <meta name="description" content="Play Geometry Dash Lite Online For Free on Chromebook, PC, Windows, Desktop in Chrome and modern browsers.">
@@ -26,46 +26,46 @@
         html {
             box-sizing: border-box;
         }
-        
+
         *,
         *:before,
         *:after {
             box-sizing: inherit;
         }
-        
+
         body {
             margin: 0;
             background-image: linear-gradient(rgb(0, 0, 0), rgb(0, 102, 255));
             overflow: hidden;
         }
-        
+
         #gameContainer {
             width: 100vw;
             height: 100vh;
         }
-        
+
         canvas {
             width: 100%;
             height: 100%;
             display: block;
         }
-        
+
         canvas+* {
             z-index: 2;
         }
-        
+
         .container {
             max-width: 1600px;
             position: relative;
         }
-        
+
         .posImg {
             position: absolute;
             top: 0;
             width: 100%;
             height: 100%;
         }
-        
+
         .logo {
             position: absolute;
             display: block;
@@ -73,13 +73,13 @@
             max-height: 70vh;
             top: 300px;
         }
-        
+
         .pos_progress {
             position: absolute;
             bottom: 15%;
             width: 100%;
         }
-        
+
         .progress {
             margin: 1.5em auto;
             max-width: 436px;
@@ -87,20 +87,20 @@
             display: none;
             position: relative;
         }
-        
+
         .full {
             width: 97%;
             transform-origin: top left;
         }
-        
+
         .box_process {
             width: 100%;
         }
-        
+
         .process {
             width: 98%;
         }
-        
+
         .progress .posfull,
         .progress .posbox {
             position: absolute;
@@ -108,17 +108,17 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .progress .posfull {
             top: 8px;
             z-index: 1;
         }
-        
+
         .progress .posbox {
             top: 0;
             z-index: 2;
         }
-        
+
         #loader {
             position: absolute;
             left: 0;
@@ -131,14 +131,14 @@
             justify-content: center;
             background-image: linear-gradient(rgb(0, 0, 0), rgb(0, 102, 255));
         }
-        
+
         .pos_spinner {
             position: absolute;
             top: 70%;
             left: 50%;
             transform: translate(-30%, -50%);
         }
-        
+
         .spinner,
         .spinner:after {
             display: none;
@@ -146,7 +146,7 @@
             width: 5em;
             height: 5em;
         }
-        
+
         .spinner {
             margin: 10px;
             font-size: 10px;
@@ -159,7 +159,7 @@
             transform: translateZ(0);
             animation: spinner-spin 1.1s infinite linear;
         }
-        
+
         @keyframes spinner-spin {
             0% {
                 transform: rotate(0deg);

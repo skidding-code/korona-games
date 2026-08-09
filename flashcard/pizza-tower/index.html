@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-<head><base href="https://cdn.jsdelivr.net/gh/skidding-code/korona-games@08a6d09813360092c09c26df8245cb6ed6fa143d/flashcard/pizza-tower/">
+<head><base href="https://cdn.jsdelivr.net/gh/skidding-code/korona-games@91060fa5e7453966f7e58cb84f76da9462305d52/flashcard/pizza-tower/">
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
@@ -41,7 +41,7 @@
           function mergeFiles(fileParts) {
               return new Promise((resolve, reject) => {
                   let buffers = [];
-      
+
                   function fetchPart(index) {
                       if (index >= fileParts.length) {
                           let mergedBlob = new Blob(buffers);
@@ -57,7 +57,7 @@
                   fetchPart(0);
               });
           }
-      
+
           function getParts(file, start, end) {
               let parts = [];
               for (let i = start; i <= end; i++) {
@@ -65,10 +65,10 @@
               }
               return parts;
           }
-      
+
           mergeFiles(getParts("game.unx", 1, 13)).then(async url => {
               window.gameUnxUrl = url;
-      
+
               const originalFetch = window.fetch;
               window.fetch = async function (...args) {
                   let [url, options] = args;
@@ -81,7 +81,7 @@
                   }
                   return originalFetch.call(this, url, options);
               };
-      
+
               const originalOpen = XMLHttpRequest.prototype.open;
               XMLHttpRequest.prototype.open = function (method, url, ...rest) {
                   if (url.includes("game.unx")) {
@@ -93,14 +93,14 @@
               let index = document.createElement("script");
               index.src = "index.js";
               document.body.appendChild(index);
-      
+
               let runner = document.createElement("script");
               runner.src = "runner.js";
               document.body.appendChild(runner);
           }).catch(error => {
               console.error("Failed to merge files:", error);
           });
-      </script>      
+      </script>
 </body>
 
 </html>

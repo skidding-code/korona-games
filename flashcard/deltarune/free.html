@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><base href="https://cdn.jsdelivr.net/gh/skidding-code/korona-games@08a6d09813360092c09c26df8245cb6ed6fa143d/flashcard/deltarune/">
+<head><base href="https://cdn.jsdelivr.net/gh/skidding-code/korona-games@91060fa5e7453966f7e58cb84f76da9462305d52/flashcard/deltarune/">
   <meta charset="UTF-8">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -8,7 +8,7 @@
   <div class="logo-container">
     <img src="logo.png" alt="Logo" class="logo">
   </div>
-  
+
   <div class="menu">
     <a href="javascript:loadChapter(1)" class="row">
       <span class="chapter">Chapter 1</span>
@@ -55,7 +55,7 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-  
+
     gtag('config', 'G-WLTG1S4STB');
   </script>
   <audio id="drone" controls loop autoplay hidden>
@@ -67,20 +67,20 @@
     const audio = document.getElementById('drone');
     const mute = document.getElementById('mute');
     let gamestarted = false;
-  
+
     mute.addEventListener('click', () => {
       if (!gamestarted) {
         audio.muted = !audio.muted;
-        updateButton(); 
+        updateButton();
       }
     });
-  
+
     function updateButton() {
       if (!gamestarted) {
         mute.textContent = audio.muted ? '🔊' : '🔇';
       }
     }
-  
+
     updateButton();
 
     function loadChapter(chapter) {
@@ -158,7 +158,7 @@
         if (selectedChapter !== null) {
           window.location.href = document.querySelectorAll('.row')[selectedChapter].href;
           menuselectaudio.play();
-        } 
+        }
       }
       }
     });

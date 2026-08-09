@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head><base href="https://cdn.jsdelivr.net/gh/skidding-code/korona-games@08a6d09813360092c09c26df8245cb6ed6fa143d/flashcard/hksilksong/">
-    
+  <head><base href="https://cdn.jsdelivr.net/gh/skidding-code/korona-games@91060fa5e7453966f7e58cb84f76da9462305d52/flashcard/hksilksong/">
+
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity Web Player | Hollow Knight SilkSong</title>
@@ -168,7 +168,7 @@ function getParts(file, start, end) {
 /* ================= MAIN ================= */
 (async () => {
   try {
-    await cleanupOldCaches(); 
+    await cleanupOldCaches();
     if (!(await isCached())) {
       loadingText.textContent = "DOWNLOADING ASSETS...";
 
@@ -228,7 +228,7 @@ function getParts(file, start, end) {
     loadingBar.style.display = "block";
 
     const script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/gh/web-ports/hollow-knight-silksong@latest/Build/w-pt.loader.js";
+    script.src = "https://cdn.jsdelivr.net/gh/skidding-code/korona-games@91060fa5e7453966f7e58cb84f76da9462305d52/flashcard/silksong/Build/w-pt.loader.js";
 
     script.onload = () => {
       createUnityInstance(canvas, config, (progress) => {

@@ -41,7 +41,8 @@ var Module = typeof Module != 'undefined' ? Module : {};
         PACKAGE_PATH = encodeURIComponent(location.pathname.toString().substring(0, location.pathname.toString().lastIndexOf('/')) + '/');
       }
       var PACKAGE_NAME = 'bin/Emscripten//RSDKv5.data';
-      var REMOTE_PACKAGE_BASE = 'https://files.catbox.moe/xsfgtj.rsdk';
+      var REMOTE_PACKAGE_BASE = 'xsfgtj.rsdk';
+      var KORONA_RUNTIME_OVERLAY_ID = '5e93e07fda8d2b62c7268cf666cd897e1b331c1960c50bbbc95e7e15e0b1c9ba';
       if (typeof Module['locateFilePackage'] === 'function' && !Module['locateFile']) {
         Module['locateFile'] = Module['locateFilePackage'];
         err('warning: you defined Module.locateFilePackage, that has been renamed to Module.locateFile (using your locateFilePackage for now)');
@@ -50,62 +51,71 @@ var Module = typeof Module != 'undefined' ? Module : {};
 var REMOTE_PACKAGE_SIZE = metadata['remote_package_size'];
 
       function fetchRemotePackage(packageName, packageSize, callback, errback) {
-        if (typeof process === 'object' && typeof process.versions === 'object' && typeof process.versions.node === 'string') {
-          require('fs').readFile(packageName, function(err, contents) {
-            if (err) {
-              errback(err);
-            } else {
-              callback(contents.buffer);
-            }
-          });
+        if (packageSize !== 208400940) {
+          errback(new Error('Korona package size mismatch'));
           return;
         }
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', packageName, true);
-        xhr.responseType = 'arraybuffer';
-        xhr.onprogress = function(event) {
-          var url = packageName;
-          var size = packageSize;
-          if (event.total) size = event.total;
-          if (event.loaded) {
-            if (!xhr.addedTotal) {
-              xhr.addedTotal = true;
-              if (!Module.dataFileDownloads) Module.dataFileDownloads = {};
-              Module.dataFileDownloads[url] = {
-                loaded: event.loaded,
-                total: size
-              };
-            } else {
-              Module.dataFileDownloads[url].loaded = event.loaded;
-            }
-            var total = 0;
-            var loaded = 0;
-            var num = 0;
-            for (var download in Module.dataFileDownloads) {
-            var data = Module.dataFileDownloads[download];
-              total += data.total;
-              loaded += data.loaded;
-              num++;
-            }
-            total = Math.ceil(total * Module.expectedDataFileDownloads/num);
-            if (Module['setStatus']) Module['setStatus']('Downloading data... (' + loaded + '/' + total + ')');
-          } else if (!Module.dataFileDownloads) {
-            if (Module['setStatus']) Module['setStatus']('Downloading data...');
-          }
-        };
-        xhr.onerror = function(event) {
-          throw new Error("NetworkError for: " + packageName);
+        var packageData = new Uint8Array(packageSize);
+        var parts = [{"name":"xsfgtj.rsdk.part-000","size":16777216,"offset":0},{"name":"xsfgtj.rsdk.part-001","size":16777216,"offset":16777216},{"name":"xsfgtj.rsdk.part-002","size":16777216,"offset":33554432},{"name":"xsfgtj.rsdk.part-003","size":16777216,"offset":50331648},{"name":"xsfgtj.rsdk.part-004","size":16777216,"offset":67108864},{"name":"xsfgtj.rsdk.part-005","size":16777216,"offset":83886080},{"name":"xsfgtj.rsdk.part-006","size":16777216,"offset":100663296},{"name":"xsfgtj.rsdk.part-007","size":16777216,"offset":117440512},{"name":"xsfgtj.rsdk.part-008","size":16777216,"offset":134217728},{"name":"xsfgtj.rsdk.part-009","size":16777216,"offset":150994944},{"name":"xsfgtj.rsdk.part-010","size":16777216,"offset":167772160},{"name":"xsfgtj.rsdk.part-011","size":16777216,"offset":184549376},{"name":"xsfgtj.rsdk.part-012","size":7074348,"offset":201326592}];
+        var progress = parts.map(function() { return 0; });
+        var next = 0;
+        var active = 0;
+        var completed = 0;
+        var failed = false;
+        function fail(error) {
+          if (failed) return;
+          failed = true;
+          errback(error instanceof Error ? error : new Error(String(error)));
         }
-        xhr.onload = function(event) {
-          if (xhr.status == 200 || xhr.status == 304 || xhr.status == 206 || (xhr.status == 0 && xhr.response)) { // file URLs can return 0
-            var packageData = xhr.response;
-            callback(packageData);
-          } else {
-            throw new Error(xhr.statusText + " : " + xhr.responseURL);
+        function report() {
+          var loaded = progress.reduce(function(total, value) { return total + value; }, 0);
+          if (Module['setStatus']) Module['setStatus']('Downloading data... (' + loaded + '/' + packageSize + ')');
+        }
+        function pump() {
+          if (failed) return;
+          if (completed === parts.length) {
+            callback(packageData.buffer);
+            return;
           }
-        };
-        xhr.send(null);
-      };
+          while (active < 3 && next < parts.length) {
+            (function(index) {
+              var descriptor = parts[index];
+              var partName = Module['locateFile'] ? Module['locateFile'](descriptor.name, '') : descriptor.name;
+              var xhr = new XMLHttpRequest();
+              active += 1;
+              xhr.open('GET', partName, true);
+              xhr.responseType = 'arraybuffer';
+              xhr.onprogress = function(event) {
+                progress[index] = Math.min(descriptor.size, event.loaded || 0);
+                report();
+              };
+              xhr.onerror = function() {
+                fail(new Error('NetworkError for Korona package part: ' + partName));
+              };
+              xhr.onload = function() {
+                if (!(xhr.status == 200 || xhr.status == 304 || xhr.status == 206 || (xhr.status == 0 && xhr.response))) {
+                  fail(new Error(xhr.statusText + ' : ' + xhr.responseURL));
+                  return;
+                }
+                var bytes = new Uint8Array(xhr.response);
+                if (bytes.byteLength !== descriptor.size) {
+                  fail(new Error('Korona package part size mismatch: ' + partName));
+                  return;
+                }
+                packageData.set(bytes, descriptor.offset);
+                progress[index] = descriptor.size;
+                active -= 1;
+                completed += 1;
+                report();
+                pump();
+              };
+              xhr.send(null);
+            })(next);
+            next += 1;
+          }
+        }
+        pump();
+      }
 
       function handleError(error) {
         console.error('package error:', error);

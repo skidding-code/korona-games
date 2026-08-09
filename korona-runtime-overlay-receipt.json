@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "kind": "korona-runtime-overlay-receipt",
+  "status": "complete",
+  "source": {
+    "size": 208400940,
+    "sha256": "77a904387581978222a78d2b7d6cd5944f9537cd72db0d6588577e99b683090c"
+  },
+  "loaderPath": "flashcard/sonicmania/RSDKv5.js",
+  "loaderSha256": "cf9c27089c77d85250a9821446563beadbf660d853bb6f35ae064ec1e7084936",
+  "logicalBase": "flashcard/sonicmania/xsfgtj.rsdk",
+  "remoteUrl": "https://files.catbox.moe/xsfgtj.rsdk",
+  "chunkSize": 16777216,
+  "overlayId": "5e93e07fda8d2b62c7268cf666cd897e1b331c1960c50bbbc95e7e15e0b1c9ba",
+  "parts": [
+    {
+      "index": 0,
+      "offset": 0,
+      "size": 16777216,
+      "sha256": "21af9cf52471fd5d4758ecac8b0476a7136bff9e2e7387508c89dda562b54b9b",
+      "path": "flashcard/sonicmania/xsfgtj.rsdk.part-000"
+    },
+    {
+      "index": 1,
+      "offset": 16777216,
+      "size": 16777216,
+      "sha256": "f153c8de0f34b49e72ec65463b464d22e418a40eb7f4f6a798179dcd7da617a2",
+      "path": "flashcard/sonicmania/xsfgtj.rsdk.part-001"
+    },
+    {
+      "index": 2,
+      "offset": 33554432,
+      "size": 16777216,
+      "sha256": "fead5bff05c2ea007f4e459adb21092a67ede8c158c1d180cd7d596ede1ca21c",
+      "path": "flashcard/sonicmania/xsfgtj.rsdk.part-002"
+    },
+    {
+      "index": 3,
+      "offset": 50331648,
+      "size": 16777216,
+      "sha256": "2b2dd6fa9ad3cbe82f81b0419e45aacac056a589897219738271c979a40459b4",
+      "path": "flashcard/sonicmania/xsfgtj.rsdk.part-003"
+    },
+    {
+      "index": 4,
+      "offset": 67108864,
+      "size": 16777216,
+      "sha256": "551a89871175a977f7460bddfeb51fbb05a7ee9b9b5a090c7e4ec1f756dd8fba",
+      "path": "flashcard/sonicmania/xsfgtj.rsdk.part-004"
+    },
+    {
+      "index": 5,
+      "offset": 83886080,
+      "size": 16777216,
+      "sha256": "6776b5d4507ad3b54119e2c7e7fc674aa0fc243e6a9024d2d2e09d75c50d1885",
+      "path": "flashcard/sonicmania/xsfgtj.rsdk.part-005"
+    },
+    {
+      "index": 6,
+      "offset": 100663296,
+      "size": 16777216,
+      "sha256": "1e2d6e62553dfdcc86078d072142a2b837a5168e5fa3a605829873d229fa4b18",
+      "path": "flashcard/sonicmania/xsfgtj.rsdk.part-006"
+    },
+    {
+      "index": 7,
+      "offset": 117440512,
+      "size": 16777216,
+      "sha256": "c85cb819ab3e3771611f1f191d5a25db4c12fc1b1fab6b5bcdf67813561bfb12",
+      "path": "flashcard/sonicmania/xsfgtj.rsdk.part-007"
+    },
+    {
+      "index": 8,
+      "offset": 134217728,
+      "size": 16777216,
+      "sha256": "97569da725871e7b8a1407fbcaee0204b1f8fbfc15626b63dbf4e802678ab31f",
+      "path": "flashcard/sonicmania/xsfgtj.rsdk.part-008"
+    },
+    {
+      "index": 9,
+      "offset": 150994944,
+      "size": 16777216,
+      "sha256": "92301fc752e8596705c90f5b80732fa28917f27acf3004be48c8b6521f5f4544",
+      "path": "flashcard/sonicmania/xsfgtj.rsdk.part-009"
+    },
+    {
+      "index": 10,
+      "offset": 167772160,
+      "size": 16777216,
+      "sha256": "9f4d16c983fa7d34f15dfb37daaa84991f79438a13e2cd9689573726e64affa2",
+      "path": "flashcard/sonicmania/xsfgtj.rsdk.part-010"
+    },
+    {
+      "index": 11,
+      "offset": 184549376,
+      "size": 16777216,
+      "sha256": "032ea2ac7bb9bee4aabebb53a4fcfc79a5590555421837f8301a492e90547597",
+      "path": "flashcard/sonicmania/xsfgtj.rsdk.part-011"
+    },
+    {
+      "index": 12,
+      "offset": 201326592,
+      "size": 7074348,
+      "sha256": "73423587c0bc8d3bbeaf90fcc366ef27561cef1752a1d5f7c8214d7a6ee98e8e",
+      "path": "flashcard/sonicmania/xsfgtj.rsdk.part-012"
+    }
+  ]
+}
