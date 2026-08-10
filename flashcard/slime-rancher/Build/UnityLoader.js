@@ -2239,7 +2239,7 @@ var UnityLoader = UnityLoader || {
                     } else if (e.endsWith("slimeBUILDS.wasm")) {
                         return window.wasmUrll;
                     }
-                    return e.match(/(http|https|ftp|file):\/\//) ? e : "Build/" + e
+                    return e.match(/(http|https|ftp|file):\/\//) || e.indexOf("blob:") === 0 ? e : "Build/" + e
                 },
                 streamingAssetsUrl: function() {
                     return o(this.resolveBuildUrl("../StreamingAssets"))
