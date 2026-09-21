@@ -1,0 +1,26 @@
+name: Undertale CXII Repair
+on:
+  push:
+    branches: [undertale-cxii-fix]
+permissions:
+  contents: read
+jobs:
+  sources:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: nutterscotch/Nspire-Butterscotch
+          ref: 80ef47e862332dfaafc09465704bc251a8d28df1
+          persist-credentials: false
+          path: butter
+      - name: Export source tree
+        run: |
+          mkdir -p exports
+          git -C butter archive --format=tar --prefix=butter/ HEAD | gzip -1 > exports/butter-source.tar.gz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: undertale-repair-sources
+          path: exports/butter-source.tar.gz
+          retention-days: 2
