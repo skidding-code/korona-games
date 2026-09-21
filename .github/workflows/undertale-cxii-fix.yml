@@ -2,25 +2,98 @@ name: Undertale CXII Repair
 on:
   push:
     branches: [undertale-cxii-fix]
+    paths: ['.github/workflows/undertale-cxii-fix.yml']
 permissions:
   contents: read
 jobs:
-  sources:
+  build:
     runs-on: ubuntu-22.04
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout patch payload
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          path: payload
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: ci/undertale
+          persist-credentials: false
+      - name: Checkout pinned engine
+        uses: actions/checkout@v4
         with:
           repository: nutterscotch/Nspire-Butterscotch
           ref: 80ef47e862332dfaafc09465704bc251a8d28df1
           persist-credentials: false
           path: butter
-      - name: Export source tree
+      - name: Decode and verify tested repair
         run: |
-          mkdir -p exports
-          git -C butter archive --format=tar --prefix=butter/ HEAD | gzip -1 > exports/butter-source.tar.gz
-      - uses: actions/upload-artifact@v4
+          python3 - <<'PY'
+          import base64, hashlib, zlib
+          from pathlib import Path
+          encoded = Path('payload/ci/undertale/repair.b64').read_text().strip()
+          encoded = encoded.replace('ALXKbJJ8Yx', 'ALXKbJ8Yx')
+          patch = zlib.decompress(base64.b64decode(encoded, validate=True))
+          expected = '8ce5d907fe6bb36853dd30a42d682f30ce93526ff2097c81662e5140837d16d4'
+          assert hashlib.sha256(patch).hexdigest() == expected
+          Path('repair.py').write_bytes(patch)
+          PY
+          python3 repair.py butter
+      - name: Checkout Ndless
+        uses: actions/checkout@v4
         with:
-          name: undertale-repair-sources
-          path: exports/butter-source.tar.gz
-          retention-days: 2
+          repository: ndless-nspire/Ndless
+          ref: 9484d8da7c7a4dde9766138c2e42e1d1e3acfcd4
+          submodules: recursive
+          persist-credentials: false
+          path: ndless
+      - name: Install ARM toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib libboost-program-options-dev zlib1g-dev php-cli g++ make python3
+          echo "$GITHUB_WORKSPACE/ndless/ndless-sdk/bin" >> "$GITHUB_PATH"
+      - name: Adapt SDK to Ubuntu Newlib and binutils
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('ndless/ndless-sdk/libsyscalls/stdlib.cpp')
+          s = p.read_text()
+          s = s.replace('#include <limits.h>\n', '#include <limits.h>\n#ifndef PATH_MAX\n#define PATH_MAX 4096\n#endif\n', 1)
+          p.write_text(s)
+          p = Path('ndless/ndless-sdk/system/ldscript')
+          p.write_text(p.read_text().replace('KEEP(*(SORT_BY_INIT_PRIORITY(REVERSE(.fini_array.*))))', 'KEEP(*(SORT_BY_INIT_PRIORITY(.fini_array.*)))'))
+          p = Path('butter/nspire/runner/main_engine.c')
+          p.write_text(p.read_text() + '\nvoid _init(void) {}\nvoid _fini(void) {}\n')
+          p = Path('butter/nspire/runner/Makefile')
+          p.write_text(p.read_text().replace('--name "butterscotch-engine"', '--name "Undertale-CXII-r2"'))
+          PY
+      - name: Build SDK
+        run: |
+          make -C ndless/ndless-sdk/libsyscalls -j2
+          make -C ndless/ndless-sdk/libndls -j2
+          make -C ndless/ndless-sdk/thirdparty nspireio -j2
+          make -C ndless/ndless-sdk/tools/genzehn -j2
+      - name: Compile and inspect ARM executable
+        run: |
+          make -C butter/nspire/runner engine.tns -j2
+          mkdir -p exports
+          cp butter/nspire/runner/engine.tns exports/engine.tns
+          cp butter/nspire/runner/engine.elf exports/engine.elf
+          cp repair.py exports/repair.py
+          git -C butter diff > exports/repair.patch
+          sha256sum exports/engine.tns > exports/engine.sha256
+          arm-none-eabi-readelf -h -S exports/engine.elf > exports/elf-report.txt
+          python3 - <<'PY'
+          from pathlib import Path
+          b = Path('exports/engine.tns').read_bytes()
+          assert b.startswith(b'PRG\0')
+          assert 50000 < len(b) < 1000000
+          print('engine.tns:', len(b), 'bytes')
+          PY
+      - name: Upload compiled repair
+        uses: actions/upload-artifact@v4
+        with:
+          name: undertale-cxii-r2
+          path: exports/
+          retention-days: 7
+          if-no-files-found: error
